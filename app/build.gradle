@@ -41,4 +41,5 @@ dependencies {
     implementation 'moe.banana:moshi-jsonapi:3.0.4'
     implementation 'moe.banana:moshi-jsonapi-retrofit-converter:3.5.0'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    testImplementation 'com.github.gmazzo:okhttp-mock:1.3.1'
 }
