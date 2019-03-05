@@ -5,5 +5,5 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface Api {
-    @GET("books") fun listBooks(): Call<Document<Books>>
+    @GET("books?include=author,chapters,photos,series,stores") fun listBooks(): Call<Document<Books>>
 }
