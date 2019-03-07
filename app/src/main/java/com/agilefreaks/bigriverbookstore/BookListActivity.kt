@@ -2,32 +2,26 @@ package com.agilefreaks.bigriverbookstore
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-import com.agilefreaks.bigriverbookstore.dummy.DummyContent
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.agilefreaks.bigriverbookstore.api.Api
+import com.agilefreaks.bigriverbookstore.data.BigRiverRepository
+import com.agilefreaks.bigriverbookstore.model.Books
+import com.agilefreaks.bigriverbookstore.viewmodel.Book
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_item_list.*
-import kotlinx.android.synthetic.main.item_list_content.view.*
 import kotlinx.android.synthetic.main.item_list.*
+import kotlinx.android.synthetic.main.item_list_content.view.*
+import kotlin.concurrent.thread
 
-/**
- * An activity representing a list of Pings. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a [ItemDetailActivity] representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
-class ItemListActivity : AppCompatActivity() {
+class BookListActivity : AppCompatActivity() {
 
     /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
+     * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
      */
     private var twoPane: Boolean = false
 
@@ -44,10 +38,6 @@ class ItemListActivity : AppCompatActivity() {
         }
 
         if (item_detail_container != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             twoPane = true
         }
 
@@ -55,12 +45,21 @@ class ItemListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        recyclerView.adapter = SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, twoPane)
+        val activity = this
+        val repository = BigRiverRepository(Api.newInstance())
+        val future = repository.getBooks()
+
+        thread {
+            val books = future.get()
+            runOnUiThread {
+                recyclerView.adapter = SimpleItemRecyclerViewAdapter(activity, books, twoPane)
+            }
+        }
     }
 
     class SimpleItemRecyclerViewAdapter(
-        private val parentActivity: ItemListActivity,
-        private val values: List<DummyContent.DummyItem>,
+        private val parentActivity: BookListActivity,
+        private val values: List<Book>,
         private val twoPane: Boolean
     ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
@@ -69,11 +68,11 @@ class ItemListActivity : AppCompatActivity() {
 
         init {
             onClickListener = View.OnClickListener { v ->
-                val item = v.tag as DummyContent.DummyItem
+                val item = v.tag as Books
                 if (twoPane) {
-                    val fragment = ItemDetailFragment().apply {
+                    val fragment = BookDetailFragment().apply {
                         arguments = Bundle().apply {
-                            putString(ItemDetailFragment.ARG_ITEM_ID, item.id)
+                            putString(BookDetailFragment.ARG_ITEM_ID, item.id)
                         }
                     }
                     parentActivity.supportFragmentManager
@@ -81,8 +80,8 @@ class ItemListActivity : AppCompatActivity() {
                         .replace(R.id.item_detail_container, fragment)
                         .commit()
                 } else {
-                    val intent = Intent(v.context, ItemDetailActivity::class.java).apply {
-                        putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id)
+                    val intent = Intent(v.context, BookDetailActivity::class.java).apply {
+                        putExtra(BookDetailFragment.ARG_ITEM_ID, item.id)
                     }
                     v.context.startActivity(intent)
                 }
@@ -96,12 +95,12 @@ class ItemListActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val item = values[position]
-            holder.idView.text = item.id
-            holder.contentView.text = item.content
+            val book = values[position]
+            holder.idView.text = book.name
+            holder.contentView.text = book.author
 
             with(holder.itemView) {
-                tag = item
+                tag = book
                 setOnClickListener(onClickListener)
             }
         }
