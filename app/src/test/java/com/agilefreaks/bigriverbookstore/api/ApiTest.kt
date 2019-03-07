@@ -12,7 +12,6 @@ import java.util.regex.Pattern
 class ApiTest {
     @Test
     fun `getBooks() will return a list of books`() {
-
         val interceptor = MockInterceptor()
         interceptor.addRule()
             .get()

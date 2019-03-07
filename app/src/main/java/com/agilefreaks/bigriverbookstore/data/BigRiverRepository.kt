@@ -11,7 +11,7 @@ class BigRiverRepository(private val api: Api) : BooksDataSource {
         val executor = Executors.newSingleThreadExecutor()
         return executor.submit<List<Book>> {
             val response = api.getBooks().execute()
-            val books =response.body()!!.toList()
+            val books = response.body()!!.toList()
             books.map { Book.from(it) }
         }
     }
