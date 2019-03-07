@@ -14,7 +14,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface Api {
-    @GET("books?include=author,chapters,photos,series,stores")
+    @GET("books?include=author,chapters,photos,series,stores&page[size]=100")
     fun getBooks(): Call<Document<Books>>
 
     @GET("books/{book_id}?include=author,chapters,photos,series,stores")
