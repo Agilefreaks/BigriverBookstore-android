@@ -9,5 +9,8 @@ class TestData {
 
         @Language("JSON")
         val book1ResponseBody = "{\"meta\":[],\"data\":{\"type\":\"books\",\"id\":\"1\",\"attributes\":{\"title\":\"Jast-Lockman\",\"date_published\":\"2007-03-25\",\"isbn\":617532143},\"relationships\":{\"author\":{\"data\":{\"type\":\"authors\",\"id\":\"16\"}},\"chapters\":{\"data\":[{\"type\":\"chapters\",\"id\":\"15\"}]},\"photos\":{\"data\":[{\"type\":\"photos\",\"id\":\"151\"},{\"type\":\"photos\",\"id\":\"152\"}]},\"series\":{\"data\":{\"type\":\"series\",\"id\":\"27\"}},\"stores\":{\"data\":[{\"type\":\"stores\",\"id\":\"47\"}]}},\"links\":{\"self\":\"\\/books\\/1\"}},\"included\":[{\"type\":\"authors\",\"id\":\"16\",\"attributes\":{\"name\":\"Paul\",\"birthplace\":\"Moldova\",\"date_of_birth\":\"1979-03-28\",\"date_of_death\":\"1988-07-24\"}},{\"type\":\"chapters\",\"id\":\"15\",\"attributes\":{\"title\":\"Chapter 182\",\"ordering\":3279340}},{\"type\":\"photos\",\"id\":\"151\",\"attributes\":{\"title\":\"Photo 921\",\"uri\":\"https:\\/\\/lorempixel.com\\/400\\/300\\/abstract\\/Faker\\/?50139\"}},{\"type\":\"photos\",\"id\":\"152\",\"attributes\":{\"title\":\"Photo 497\",\"uri\":\"https:\\/\\/lorempixel.com\\/400\\/300\\/abstract\\/Faker\\/?55702\"}},{\"type\":\"series\",\"id\":\"27\",\"attributes\":{\"title\":\"Series 1783695\"}},{\"type\":\"stores\",\"id\":\"47\",\"attributes\":{\"name\":\"Store 730\",\"address\":\"61503 Tiara Squares\",\"created_by\":1}}]}"
+
+        @Language("JSON")
+        val book0Error = "{\"errors\":[{\"code\":\"404\",\"title\":\"Resource `0` not found.\"}]}"
     }
 }
