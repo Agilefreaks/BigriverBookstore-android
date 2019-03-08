@@ -10,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.agilefreaks.bigriverbookstore.api.Api
 import com.agilefreaks.bigriverbookstore.data.BigRiverRepository
-import com.agilefreaks.bigriverbookstore.model.Books
 import com.agilefreaks.bigriverbookstore.viewmodel.Book
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
@@ -20,26 +18,12 @@ import kotlin.concurrent.thread
 
 class BookListActivity : AppCompatActivity() {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet device.
-     */
-    private var twoPane: Boolean = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_item_list)
 
         setSupportActionBar(toolbar)
         toolbar.title = title
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
-        if (item_detail_container != null) {
-            twoPane = true
-        }
 
         setupRecyclerView(item_list)
     }
@@ -52,39 +36,27 @@ class BookListActivity : AppCompatActivity() {
         thread {
             val books = future.get()
             runOnUiThread {
-                recyclerView.adapter = SimpleItemRecyclerViewAdapter(activity, books, twoPane)
+                recyclerView.adapter = SimpleItemRecyclerViewAdapter(activity, books)
             }
         }
     }
 
     class SimpleItemRecyclerViewAdapter(
         private val parentActivity: BookListActivity,
-        private val values: List<Book>,
-        private val twoPane: Boolean
+        private val values: List<Book>
     ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {
 
         private val onClickListener: View.OnClickListener
 
         init {
-            onClickListener = View.OnClickListener { v ->
-                val item = v.tag as Books
-                if (twoPane) {
-                    val fragment = BookDetailFragment().apply {
-                        arguments = Bundle().apply {
-                            putString(BookDetailFragment.ARG_ITEM_ID, item.id)
-                        }
-                    }
-                    parentActivity.supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.item_detail_container, fragment)
-                        .commit()
-                } else {
-                    val intent = Intent(v.context, BookDetailActivity::class.java).apply {
-                        putExtra(BookDetailFragment.ARG_ITEM_ID, item.id)
-                    }
-                    v.context.startActivity(intent)
+            onClickListener = View.OnClickListener { view ->
+                val book = view.tag as Book
+
+                val intent = Intent(view.context, BookDetailActivity::class.java).apply {
+                    putExtra(BookDetailFragment.ARG_BOOK_ID, book.id)
                 }
+                view.context.startActivity(intent)
             }
         }
 

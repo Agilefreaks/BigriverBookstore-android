@@ -5,30 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.agilefreaks.bigriverbookstore.api.Api
+import com.agilefreaks.bigriverbookstore.data.BigRiverRepository
+import com.agilefreaks.bigriverbookstore.viewmodel.Book
+import kotlinx.android.synthetic.main.activity_item_detail.*
+import kotlinx.android.synthetic.main.item_detail.view.*
+import kotlin.concurrent.thread
 
-/**
- * A fragment representing a single Item detail screen.
- * This fragment is either contained in a [BookListActivity]
- * in two-pane mode (on tablets) or a [BookDetailActivity]
- * on handsets.
- */
 class BookDetailFragment : Fragment() {
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-//    private var item: DummyContent.DummyItem? = null
+    private var book: Book? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            if (it.containsKey(ARG_ITEM_ID)) {
-                // Load the dummy content specified by the fragment
-                // arguments. In a real-world scenario, use a Loader
-                // to load content from a content provider.
-//                item = DummyContent.ITEM_MAP[it.getString(ARG_ITEM_ID)]
-//                activity?.toolbar_layout?.name = item?.content
+            if (it.containsKey(ARG_BOOK_ID)) {
+                val bookId = it.getString(ARG_BOOK_ID)?.toIntOrNull() ?: throw IllegalStateException("bookId must be present.")
+                thread {
+                    val repository = BigRiverRepository(Api.newInstance())
+                    val future = repository.getBook(bookId)
+                    val book = future.get()
+                    activity?.runOnUiThread {
+                        activity?.toolbar_layout?.title = book?.name
+                    }
+                }
             }
         }
     }
@@ -39,19 +40,14 @@ class BookDetailFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.item_detail, container, false)
 
-        // Show the dummy content as text in a TextView.
-//        item?.let {
-//            rootView.item_detail.text = it.details
-//        }
+        book?.let {
+            rootView.item_detail.text = it.name
+        }
 
         return rootView
     }
 
     companion object {
-        /**
-         * The fragment argument representing the item ID that this fragment
-         * represents.
-         */
-        const val ARG_ITEM_ID = "item_id"
+        const val ARG_BOOK_ID = "item_id"
     }
 }
