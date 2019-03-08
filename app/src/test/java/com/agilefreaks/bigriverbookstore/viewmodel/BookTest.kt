@@ -15,23 +15,6 @@ class BookTest {
         .fromJson(TestData.book1ResponseBody)!!
         .get()
 
-/*
-FIXME can't mock because reasons
-
-private val authorMock = mock<Authors> {
-on { name } doReturn "Paul"
-}
-private val photosMock = mock<Photos> {
-on { uri } doReturn "https://lorempixel.com/400/300/abstract/Faker/?50139"
-}
-private val bookMock = mock<Books> {
-on { id } doReturn "1"
-on { title } doReturn "Jast-Lockman"
-on { getAuthor() } doReturn authorMock
-on { getPhotos() } doReturn listOf(photosMock)
-}
-*/
-
     @Test
     fun `from(Books) should return a book with the correct book id`() {
         val book = Book.from(book1)
