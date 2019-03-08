@@ -13,5 +13,9 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="TextAppearance.BookTitle" parent="TextAppearance.MaterialComponents.Headline5"/>
+    <style name="TextAppearance.AuthorName" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/colorDarkGray</item>
+    </style>
 
 </resources>

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Big River Bookstore</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="by">by</string>
 </resources>
