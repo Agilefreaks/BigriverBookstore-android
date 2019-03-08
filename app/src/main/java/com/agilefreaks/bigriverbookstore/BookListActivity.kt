@@ -14,6 +14,7 @@ import com.agilefreaks.bigriverbookstore.viewmodel.Book
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
 import kotlinx.android.synthetic.main.item_list_content.view.*
+import java.util.concurrent.Executors
 import kotlin.concurrent.thread
 
 class BookListActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class BookListActivity : AppCompatActivity() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         val activity = this
-        val repository = BigRiverRepository(Api.newInstance())
+        val repository = BigRiverRepository(Api.newInstance(), Executors.newSingleThreadExecutor())
         val future = repository.getBooks()
 
         thread {

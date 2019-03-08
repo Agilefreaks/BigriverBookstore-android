@@ -5,16 +5,15 @@ import com.agilefreaks.bigriverbookstore.model.Books
 import com.agilefreaks.bigriverbookstore.viewmodel.Book
 import moe.banana.jsonapi2.Document
 import retrofit2.Response
-import java.util.concurrent.Executors
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Future
 
-class BigRiverRepository(private val api: Api) : BooksDataSource {
+class BigRiverRepository(private val api: Api, private val executor: ExecutorService) : BooksDataSource {
 
     class UnexpectedStatusCodeException(code: Int): RuntimeException("Unexpected status code: $code")
     class EmptyResponseBodyException(error: Any?) : RuntimeException("Response body was null. Error: $error")
 
     override fun getBooks(): Future<List<Book>> {
-        val executor = Executors.newSingleThreadExecutor()
         return executor.submit<List<Book>> {
             val response = api.getBooks().execute()
             val body = verifyResponse(response)
@@ -24,7 +23,6 @@ class BigRiverRepository(private val api: Api) : BooksDataSource {
     }
 
     override fun getBook(bookId: Int): Future<Book> {
-        val executor = Executors.newSingleThreadExecutor()
         return executor.submit<Book> {
             val response = api.getBook(bookId).execute()
             val body = verifyResponse(response)

@@ -13,6 +13,7 @@ import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
 import java.util.concurrent.ExecutionException
+import java.util.concurrent.Executors
 import kotlin.test.assertFailsWith
 
 class BigRiverRepositoryTest {
@@ -31,7 +32,7 @@ class BigRiverRepositoryTest {
             on{getBooks()} doReturn callMock
         }
 
-        val repository = BigRiverRepository(apiMock)
+        val repository = BigRiverRepository(apiMock, Executors.newSingleThreadExecutor())
 
         val future = repository.getBooks()
         val books = future.get()
@@ -52,7 +53,7 @@ class BigRiverRepositoryTest {
         val apiMock = mock<Api> {
             on{getBook(1)} doReturn callMock
         }
-        val repository = BigRiverRepository(apiMock)
+        val repository = BigRiverRepository(apiMock, Executors.newSingleThreadExecutor())
 
         val future = repository.getBook(1)
         val book = future.get()
@@ -74,7 +75,7 @@ class BigRiverRepositoryTest {
         val apiMock = mock<Api> {
             on{getBook(0)} doReturn callMock
         }
-        val repository = BigRiverRepository(apiMock)
+        val repository = BigRiverRepository(apiMock, Executors.newSingleThreadExecutor())
 
         assertFailsWith<ExecutionException> {
             repository.getBook(0).get()
@@ -93,7 +94,7 @@ class BigRiverRepositoryTest {
         val apiMock = mock<Api> {
             on{getBook(0)} doReturn callMock
         }
-        val repository = BigRiverRepository(apiMock)
+        val repository = BigRiverRepository(apiMock, Executors.newSingleThreadExecutor())
 
         assertFailsWith<ExecutionException> {
             repository.getBook(0).get()
