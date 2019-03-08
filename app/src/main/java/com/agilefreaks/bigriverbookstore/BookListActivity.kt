@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.agilefreaks.bigriverbookstore.api.Api
-import com.agilefreaks.bigriverbookstore.data.BigRiverRepository
+import com.agilefreaks.bigriverbookstore.data.BooksRepository
 import com.agilefreaks.bigriverbookstore.viewmodel.Book
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
@@ -30,20 +30,18 @@ class BookListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val activity = this
-        val repository = BigRiverRepository(Api.newInstance(), Executors.newSingleThreadExecutor())
+        val repository = BooksRepository(Api.newInstance(), Executors.newSingleThreadExecutor())
         val future = repository.getBooks()
 
         thread {
             val books = future.get()
             runOnUiThread {
-                recyclerView.adapter = SimpleItemRecyclerViewAdapter(activity, books)
+                recyclerView.adapter = SimpleItemRecyclerViewAdapter(books)
             }
         }
     }
 
     class SimpleItemRecyclerViewAdapter(
-        private val parentActivity: BookListActivity,
         private val values: List<Book>
     ) :
         RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>() {

@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executors
 import kotlin.test.assertFailsWith
 
-class BigRiverRepositoryTest {
+class BooksRepositoryTest {
 
     @Test
     fun `getBooks() will return a list of books`() {
@@ -32,7 +32,7 @@ class BigRiverRepositoryTest {
             on{getBooks()} doReturn callMock
         }
 
-        val repository = BigRiverRepository(apiMock, Executors.newSingleThreadExecutor())
+        val repository = BooksRepository(apiMock, Executors.newSingleThreadExecutor())
 
         val future = repository.getBooks()
         val books = future.get()
@@ -53,7 +53,7 @@ class BigRiverRepositoryTest {
         val apiMock = mock<Api> {
             on{getBook(1)} doReturn callMock
         }
-        val repository = BigRiverRepository(apiMock, Executors.newSingleThreadExecutor())
+        val repository = BooksRepository(apiMock, Executors.newSingleThreadExecutor())
 
         val future = repository.getBook(1)
         val book = future.get()
@@ -75,7 +75,7 @@ class BigRiverRepositoryTest {
         val apiMock = mock<Api> {
             on{getBook(0)} doReturn callMock
         }
-        val repository = BigRiverRepository(apiMock, Executors.newSingleThreadExecutor())
+        val repository = BooksRepository(apiMock, Executors.newSingleThreadExecutor())
 
         assertFailsWith<ExecutionException> {
             repository.getBook(0).get()
@@ -94,7 +94,7 @@ class BigRiverRepositoryTest {
         val apiMock = mock<Api> {
             on{getBook(0)} doReturn callMock
         }
-        val repository = BigRiverRepository(apiMock, Executors.newSingleThreadExecutor())
+        val repository = BooksRepository(apiMock, Executors.newSingleThreadExecutor())
 
         assertFailsWith<ExecutionException> {
             repository.getBook(0).get()
