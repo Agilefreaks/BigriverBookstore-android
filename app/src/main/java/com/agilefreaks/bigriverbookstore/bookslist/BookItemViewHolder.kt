@@ -1,13 +1,13 @@
 package com.agilefreaks.bigriverbookstore.bookslist
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_list_content.view.*
+import com.agilefreaks.bigriverbookstore.databinding.ItemListContentBinding
+import com.agilefreaks.bigriverbookstore.viewmodel.Book
 
-class BookItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val name: TextView = view.name
-    val author: TextView = view.author
-    val cover: ImageView = view.cover
+class BookItemViewHolder(private val binding: ItemListContentBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(book: Book, handler: OnBookClickHandler) {
+        binding.book = book
+        binding.handler = handler
+        binding.executePendingBindings()
+    }
 }

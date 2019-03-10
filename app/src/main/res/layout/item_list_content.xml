@@ -1,51 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-            android:layout_width="wrap_content"
+    <data>
+        <variable name="book" type="com.agilefreaks.bigriverbookstore.viewmodel.Book"/>
+        <variable name="handler" type="com.agilefreaks.bigriverbookstore.bookslist.OnBookClickHandler"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        <ImageView
-                android:id="@+id/cover"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="ContentDescription" />
-
-        <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/text_margin"
-                android:textAppearance="@style/TextAppearance.BookTitle"/>
+            android:layout_margin="@dimen/text_margin"
+            android:onClick="@{handler::onBookClick}"
+            android:tag="@{book}">
 
         <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_marginVertical="@dimen/text_margin"
-                      android:layout_marginStart="@dimen/text_margin"
-                      android:layout_marginEnd="@dimen/space"
-                      android:textColor="@color/colorLightGray"
-                      android:text="@string/by"/>
+            <ImageView
+                    android:id="@+id/cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="ContentDescription"
+                    app:imageUrl="@{book.cover}"/>
 
             <TextView
-                    android:id="@+id/author"
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/text_margin"
-                    android:layout_gravity="center"
-                    android:textAppearance="@style/TextAppearance.AuthorName"/>
+                    android:layout_margin="@dimen/text_margin"
+                    android:text="@{book.name}"
+                    android:textAppearance="@style/TextAppearance.BookTitle"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <TextView android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginVertical="@dimen/text_margin"
+                          android:layout_marginStart="@dimen/text_margin"
+                          android:layout_marginEnd="@dimen/space"
+                          android:textColor="@color/colorLightGray"
+                          android:text="@string/by"/>
+
+                <TextView
+                        android:id="@+id/author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/text_margin"
+                        android:layout_gravity="center"
+                        android:text="@{book.author}"
+                        android:textAppearance="@style/TextAppearance.AuthorName"/>
+            </LinearLayout>
         </LinearLayout>
-
-
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>

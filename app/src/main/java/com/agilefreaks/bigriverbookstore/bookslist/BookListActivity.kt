@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.agilefreaks.bigriverbookstore.R
 import com.agilefreaks.bigriverbookstore.api.Api
 import com.agilefreaks.bigriverbookstore.data.BooksRepository
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
 import kotlin.concurrent.thread
@@ -25,17 +24,15 @@ class BookListActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
-        val glide = Glide.with(this)
-
         recyclerView.layoutManager = GridLayoutManager(this, 2)
-        recyclerView.adapter = BookRecyclerViewAdapter(emptyList(), glide)
+        recyclerView.adapter = BookRecyclerViewAdapter(emptyList())
 
         thread {
             val repository = BooksRepository(Api.newInstance())
             val future = repository.getBooks()
             val books = future.get()
             runOnUiThread {
-                recyclerView.adapter = BookRecyclerViewAdapter(books, glide)
+                recyclerView.adapter = BookRecyclerViewAdapter(books)
             }
         }
     }
