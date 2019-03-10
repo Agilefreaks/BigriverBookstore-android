@@ -10,7 +10,6 @@ import com.agilefreaks.bigriverbookstore.data.BooksRepository
 import com.agilefreaks.bigriverbookstore.viewmodel.Book
 import kotlinx.android.synthetic.main.activity_item_detail.*
 import kotlinx.android.synthetic.main.item_detail.view.*
-import java.util.concurrent.Executors
 import kotlin.concurrent.thread
 
 class BookDetailFragment : Fragment() {
@@ -24,7 +23,7 @@ class BookDetailFragment : Fragment() {
             if (it.containsKey(ARG_BOOK_ID)) {
                 val bookId = it.getString(ARG_BOOK_ID)?.toIntOrNull() ?: throw IllegalStateException("bookId must be present.")
                 thread {
-                    val repository = BooksRepository(Api.newInstance(), Executors.newSingleThreadExecutor())
+                    val repository = BooksRepository(Api.newInstance())
                     val future = repository.getBook(bookId)
                     val book = future.get()
                     activity?.runOnUiThread {

@@ -6,9 +6,10 @@ import com.agilefreaks.bigriverbookstore.viewmodel.Book
 import moe.banana.jsonapi2.Document
 import retrofit2.Response
 import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
-class BooksRepository(private val api: Api, private val executor: ExecutorService) : BooksDataSource {
+class BooksRepository(private val api: Api, private val executor: ExecutorService = Executors.newSingleThreadExecutor()) : BooksDataSource {
 
     class UnexpectedStatusCodeException(code: Int): RuntimeException("Unexpected status code: $code")
     class EmptyResponseBodyException(error: Any?) : RuntimeException("Response body was null. Error: $error")

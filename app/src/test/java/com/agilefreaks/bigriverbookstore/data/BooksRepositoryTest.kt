@@ -13,7 +13,6 @@ import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
 import java.util.concurrent.ExecutionException
-import java.util.concurrent.Executors
 import kotlin.test.assertFailsWith
 
 class BooksRepositoryTest {
@@ -32,7 +31,7 @@ class BooksRepositoryTest {
             on{getBooks()} doReturn callMock
         }
 
-        val repository = BooksRepository(apiMock, Executors.newSingleThreadExecutor())
+        val repository = BooksRepository(apiMock)
 
         val future = repository.getBooks()
         val books = future.get()
@@ -53,7 +52,7 @@ class BooksRepositoryTest {
         val apiMock = mock<Api> {
             on{getBook(1)} doReturn callMock
         }
-        val repository = BooksRepository(apiMock, Executors.newSingleThreadExecutor())
+        val repository = BooksRepository(apiMock)
 
         val future = repository.getBook(1)
         val book = future.get()
@@ -75,7 +74,7 @@ class BooksRepositoryTest {
         val apiMock = mock<Api> {
             on{getBook(0)} doReturn callMock
         }
-        val repository = BooksRepository(apiMock, Executors.newSingleThreadExecutor())
+        val repository = BooksRepository(apiMock)
 
         assertFailsWith<ExecutionException> {
             repository.getBook(0).get()
@@ -94,7 +93,7 @@ class BooksRepositoryTest {
         val apiMock = mock<Api> {
             on{getBook(0)} doReturn callMock
         }
-        val repository = BooksRepository(apiMock, Executors.newSingleThreadExecutor())
+        val repository = BooksRepository(apiMock)
 
         assertFailsWith<ExecutionException> {
             repository.getBook(0).get()

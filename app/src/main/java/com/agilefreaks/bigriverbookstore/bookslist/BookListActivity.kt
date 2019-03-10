@@ -10,7 +10,6 @@ import com.agilefreaks.bigriverbookstore.data.BooksRepository
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_item_list.*
 import kotlinx.android.synthetic.main.item_list.*
-import java.util.concurrent.Executors
 import kotlin.concurrent.thread
 
 class BookListActivity : AppCompatActivity() {
@@ -32,7 +31,7 @@ class BookListActivity : AppCompatActivity() {
         recyclerView.adapter = BookRecyclerViewAdapter(emptyList(), glide)
 
         thread {
-            val repository = BooksRepository(Api.newInstance(), Executors.newSingleThreadExecutor())
+            val repository = BooksRepository(Api.newInstance())
             val future = repository.getBooks()
             val books = future.get()
             runOnUiThread {
