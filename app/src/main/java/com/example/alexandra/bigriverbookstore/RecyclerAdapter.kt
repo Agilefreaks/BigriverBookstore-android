@@ -11,13 +11,16 @@ import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 class RecyclerAdapter(private val photos: ArrayList<Photo>) : RecyclerView.Adapter<RecyclerAdapter.PhotoHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.PhotoHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //inflate the view from its layout and pass it in to a PhotoHolder
+        val inflatedView = parent.inflate(R.layout.recyclerview_item_row, false)
+        return PhotoHolder(inflatedView)
     }
 
     override fun getItemCount(): Int = photos.size
 
     override fun onBindViewHolder(holder: RecyclerAdapter.PhotoHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val itemPhoto = photos[position]
+        holder.bindPhoto(itemPhoto)
     }
 
     //1
