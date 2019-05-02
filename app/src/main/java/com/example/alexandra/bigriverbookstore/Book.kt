@@ -1,3 +1,3 @@
 package com.example.alexandra.bigriverbookstore
 
-data class User(val name: String, val title: String)
+data class Book(val name: String, val title: String, val Picture: String)
