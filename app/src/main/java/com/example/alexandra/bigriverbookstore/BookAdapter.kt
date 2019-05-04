@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 
 class BookAdapter(val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.txtName?.text = bookList[position].name
         holder.txtTitle?.text = bookList[position].title
-        holder.bookImage?.text = bookList[position].picture
+      //  holder.bookImage?.text = bookList[position].picture
+        var imageUrl = bookList[position].picturePath
+        holder?.updateWithUrl(imageUrl)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,5 +31,9 @@ class BookAdapter(val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdap
         val txtName = itemView.findViewById<TextView>(R.id.txtName)
         val txtTitle = itemView.findViewById<TextView>(R.id.txtTitle)
         val bookImage = itemView.findViewById<ImageView>(R.id.bookImage)
+
+        fun updateWithUrl(url: String) {
+            Picasso.get().load(url).into(bookImage)
+        }
     }
 }
