@@ -19,7 +19,7 @@ class BooksRepository(
             val response = api.getBooks().execute()
             val body = verifyResponse(response)
             val books = body.toList()
-            books.map { Book.from(it) }
+            books.map { Book.from(books) }
         }
     }
 
