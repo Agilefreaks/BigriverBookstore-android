@@ -23,7 +23,7 @@ class BooksRepository(
         }
     }
 
-    private fun verifyResponse(response: Response<Document<Books>>): Document<Books> {
+    private fun verifyResponse(response: Response<Books>): Document<Books> {
         val statusCode = response.code()
         if (statusCode != 200) {
             throw  ErrorException("Status code different fro 200. Error body: ${response.errorBody().toString()}")

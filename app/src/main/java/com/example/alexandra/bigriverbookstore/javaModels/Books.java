@@ -14,8 +14,8 @@ public class Books extends Resource {
     @Json(name = "date_published")
     public String datePublished;
     public String isbn;
-    public HasOne<Authors> author;
-    public HasMany<Photos> photos;
+    private HasOne<Authors> author;
+    private HasMany<Photos> photos;
 
     public Authors getAuthor() {
         return author.get(getDocument());
