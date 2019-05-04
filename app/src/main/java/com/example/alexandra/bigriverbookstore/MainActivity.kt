@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setRecycleView(recyclerView: RecyclerView) {
         recyclerView.layoutManager = LinearLayoutManager(this)
+        setupRecyclerView(recyclerView)
 
 //        val books = ArrayList<Book>()
 //        books.add(
