@@ -19,11 +19,11 @@ class BooksRepository(
             val response = api.getBooks().execute()
             val body = verifyResponse(response)
             val books = body.toList()
-            books.map { Book.from(it) }
+            books.map { Book.from(books) }
         }
     }
 
-    private fun verifyResponse(response: Response<Document<Books>>): Document<Books> {
+    private fun verifyResponse(response: Response<Books>): Document<Books> {
         val statusCode = response.code()
         if (statusCode != 200) {
             throw  ErrorException("Status code different fro 200. Error body: ${response.errorBody().toString()}")
