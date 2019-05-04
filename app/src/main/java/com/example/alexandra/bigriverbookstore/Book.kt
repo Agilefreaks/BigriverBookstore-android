@@ -10,3 +10,6 @@ data class Book(val authorName: String, val bookTitle: String, val picturePath: 
         }
     }
 }
+
+//public class Book(val name: String, val title: String, val picturePath: String)
+
