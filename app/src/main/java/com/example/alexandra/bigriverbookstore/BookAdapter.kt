@@ -13,9 +13,8 @@ class BookAdapter(val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.txtName?.text = bookList[position].name
         holder.txtTitle?.text = bookList[position].title
-      //  holder.bookImage?.text = bookList[position].picture
         var imageUrl = bookList[position].picturePath
-        holder?.updateWithUrl(imageUrl)
+        holder.updateWithUrl(imageUrl)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
