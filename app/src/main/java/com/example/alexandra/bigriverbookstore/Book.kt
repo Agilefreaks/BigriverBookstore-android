@@ -1,15 +1,27 @@
 package com.example.alexandra.bigriverbookstore
 
-data class Book(val authorName: String, val bookTitle: String, val picturePath: String) {
+import com.example.alexandra.bigriverbookstore.javaModels.Books
+
+//data class Book(val authorName: String, val bookTitle: String, val picturePath: String) {
+//    companion object {
+//        fun from(book: Book): Book {
+//            val authorName = book.authorName
+//            val bookTitle = book.bookTitle
+//            val picturePath = book.picturePath
+//            return Book(authorName, bookTitle, picturePath)
+//        }
+//    }
+//}
+
+
+data class Book(val name: String, val author: String, val picturePath: String?){
     companion object {
-        fun from(book: Book): Book {
-            val authorName = book.authorName
-            val bookTitle = book.bookTitle
-            val picturePath = book.picturePath
-            return Book(authorName, bookTitle, picturePath)
-        }
+         fun from(book: Books):Book{
+             val name= book.title
+             val author= book.author
+             val picturePath = book.photos.firstOrNull()?.uri
+
+             return Book(name,author,picturePath)
+         }
     }
 }
-
-//public class Book(val name: String, val title: String, val picturePath: String)
-
