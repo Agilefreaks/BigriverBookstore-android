@@ -1,7 +1,6 @@
 package com.example.alexandra.bigriverbookstore
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
@@ -32,20 +31,14 @@ class MainActivityTest {
 
     @Test
     fun checkIfFirstItemInListExists() {
-        // write a test that will check that the first item in the recycler
-        // view has a title and a author name
-        onView(
-            RecyclerViewMatcher(R.id.book_list)
-                .atPositionOnView(0, R.id.txtName)
-        )
+        onView(RecyclerViewMatcher(R.id.book_list)
+            .atPositionOnView(0, R.id.authorName))
             .check(matches(withText("Paul k")))
-            .perform(click())
 
         onView(
             RecyclerViewMatcher(R.id.book_list)
-                .atPositionOnView(0, R.id.txtTitle)
+                .atPositionOnView(0, R.id.title)
         )
             .check(matches(withText("book t1")))
-            .perform(click())
     }
 }

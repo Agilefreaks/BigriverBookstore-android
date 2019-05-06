@@ -11,8 +11,8 @@ import com.squareup.picasso.Picasso
 class BookAdapter(private val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.txtName?.text = bookList[position].authorName
-        holder.txtTitle?.text = bookList[position].bookTitle
+        holder.authorName.text = bookList[position].authorName
+        holder.bookTitle.text = bookList[position].bookTitle
         val imageUrl = bookList[position].picturePath
         holder.updateWithUrl(imageUrl)
     }
@@ -25,8 +25,8 @@ class BookAdapter(private val bookList: ArrayList<Book>) : RecyclerView.Adapter<
     override fun getItemCount(): Int = bookList.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val txtName = itemView.findViewById<TextView>(R.id.txtName)
-        val txtTitle = itemView.findViewById<TextView>(R.id.txtTitle)
+        val authorName: TextView by lazy { itemView.findViewById<TextView>(R.id.authorName) }
+        val bookTitle: TextView by lazy { itemView.findViewById<TextView>(R.id.bookTitle) }
         val bookImage: ImageView by lazy {
             itemView.findViewById<ImageView>(R.id.bookImage)
         }
