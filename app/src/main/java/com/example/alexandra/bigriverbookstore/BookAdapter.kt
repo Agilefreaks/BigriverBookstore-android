@@ -8,12 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 
-class BookAdapter(val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter(private val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.txtName?.text = bookList[position].name
         holder.txtTitle?.text = bookList[position].title
-        var imageUrl = bookList[position].picturePath
+        val imageUrl = bookList[position].picturePath
         holder.updateWithUrl(imageUrl)
     }
 
@@ -22,14 +22,14 @@ class BookAdapter(val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdap
         return ViewHolder(v)
     }
 
-    override fun getItemCount(): Int {
-        return bookList.size
-    }
+    override fun getItemCount(): Int = bookList.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtName = itemView.findViewById<TextView>(R.id.txtName)
         val txtTitle = itemView.findViewById<TextView>(R.id.txtTitle)
-        val bookImage = itemView.findViewById<ImageView>(R.id.bookImage)
+        val bookImage: ImageView by lazy {
+            itemView.findViewById<ImageView>(R.id.bookImage)
+        }
 
         fun updateWithUrl(url: String) {
             Picasso.get().load(url).into(bookImage)
