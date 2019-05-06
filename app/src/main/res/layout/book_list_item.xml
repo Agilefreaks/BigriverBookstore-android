@@ -10,7 +10,6 @@
     </data>
 
     <LinearLayout
-
             android:padding="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -18,10 +17,10 @@
 
         <ImageView
                 android:id="@+id/bookImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                tools:ignore="ContentDescription"
-                android:src="@drawable/book1"/>
+                android:src="@{bookModel.picturePath}"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                tools:ignore="ContentDescription"/>
 
         <LinearLayout
                 android:padding="10dp"
