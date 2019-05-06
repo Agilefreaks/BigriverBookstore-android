@@ -17,6 +17,10 @@ import org.junit.Assert.*
 class ExampleInstrumentedTest {
     @Test
     fun useAppContext() {
+
+        // write a test that will check that the first item in the recycler
+        // view has a title and a author name
+
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
         assertEquals("com.example.alexandra.bigriverbookstore", appContext.packageName)
