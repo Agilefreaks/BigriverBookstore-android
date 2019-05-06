@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:padding="10dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    <ImageView
-            android:id="@+id/bookImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/book1"/>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+                name="bookModel"
+                type="com.example.alexandra.bigriverbookstore.Book"/>
+    </data>
 
     <LinearLayout
+            xmlns:tools="http://schemas.android.com/tools"
             android:padding="10dp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <TextView
-                android:id="@+id/authorName"
-                tools:text="Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <ImageView
+                android:id="@+id/bookImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/book1"/>
 
-        <TextView
-                tools:text="Book title"
-                android:id="@+id/bookTitle"
+        <LinearLayout
+                android:padding="10dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/authorName"
+                    android:text="@{bookModel.authorName}"
+                    tools:text="Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    tools:text="Book title"
+                    android:id="@+id/bookTitle"
+                    android:text="@{bookModel.bookTitle}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+</layout>
