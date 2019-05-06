@@ -20,14 +20,14 @@
             android:layout_height="wrap_content">
 
         <TextView
-                android:id="@+id/txtName"
+                android:id="@+id/authorName"
                 tools:text="Name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         <TextView
                 tools:text="Book title"
-                android:id="@+id/txtTitle"
+                android:id="@+id/bookTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
