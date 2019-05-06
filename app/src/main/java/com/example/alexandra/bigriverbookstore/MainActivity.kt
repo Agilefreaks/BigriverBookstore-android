@@ -1,12 +1,11 @@
 package com.example.alexandra.bigriverbookstore
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
-import com.example.alexandra.bigriverbookstore.databinding.BookListItemBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,14 +13,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val binding: BookListItemBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val bookModel = Book("Author name", "Book title", "https://lorempixel.com//400//300//abstract//Faker//?50138")
-        binding.setVariable(BR.bookModel, bookModel)
-        binding.setLifecycleOwner(this)
-        binding.executePendingBindings()
+        val recycleView = findViewById<RecyclerView>(R.id.book_list)
+        recycleView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+        setRecycleView(recycleView)
+    }
 
-        val rv = findViewById<RecyclerView>(R.id.book_list)
-        rv.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
+    private fun setRecycleView(recyclerView: RecyclerView) {
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
 
         val books = ArrayList<Book>()
         books.add(
@@ -66,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 "https://lorempixel.com//400//300//abstract//Faker//?50138"
             )
         )
-        rv.adapter = BookAdapter(books)
+        recyclerView.adapter = BookAdapter(books)
     }
 }
+

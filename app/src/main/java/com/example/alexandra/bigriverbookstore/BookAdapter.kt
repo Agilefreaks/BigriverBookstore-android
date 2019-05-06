@@ -6,33 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.alexandra.bigriverbookstore.databinding.BookListItemBinding
 import com.squareup.picasso.Picasso
 
-class BookAdapter(private val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter(private val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookHolder>() {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.authorName.text = bookList[position].authorName
-        holder.bookTitle.text = bookList[position].bookTitle
-        val imageUrl = bookList[position].picturePath
-        holder.updateWithUrl(imageUrl)
-    }
+    override fun onBindViewHolder(holder: BookHolder, position: Int) = holder.bind(bookList[position])
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.book_list_item, parent, false)
-        return ViewHolder(v)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = BookListItemBinding.inflate(layoutInflater)
+        return BookHolder(binding)
     }
 
     override fun getItemCount(): Int = bookList.size
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val authorName: TextView by lazy { itemView.findViewById<TextView>(R.id.authorName) }
-        val bookTitle: TextView by lazy { itemView.findViewById<TextView>(R.id.bookTitle) }
-        val bookImage: ImageView by lazy {
-            itemView.findViewById<ImageView>(R.id.bookImage)
-        }
-
-        fun updateWithUrl(url: String) {
-            Picasso.get().load(url).into(bookImage)
-        }
-    }
 }
