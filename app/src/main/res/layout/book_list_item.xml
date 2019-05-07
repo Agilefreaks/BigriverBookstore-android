@@ -12,20 +12,21 @@
     <LinearLayout
             android:padding="10dp"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
         <ImageView
                 android:id="@+id/bookImage"
-                android:src="@{bookModel.picturePath}"
+                android:src="@{bookModel.picturePath }"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
+
                 tools:ignore="ContentDescription"/>
 
         <LinearLayout
                 android:padding="10dp"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
             <TextView
@@ -39,6 +40,12 @@
                     tools:text="Book title"
                     android:id="@+id/bookTitle"
                     android:text="@{bookModel.bookTitle}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    tools:text="Book imagePath"
+                    android:id="@+id/bookImagePath"
+                    android:text="@{bookModel.picturePath}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
         </LinearLayout>

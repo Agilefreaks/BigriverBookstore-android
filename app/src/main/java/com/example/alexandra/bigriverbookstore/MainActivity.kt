@@ -2,7 +2,7 @@ package com.example.alexandra.bigriverbookstore
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecycleView(recyclerView: RecyclerView) {
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         val books = ArrayList<Book>()
         books.add(
