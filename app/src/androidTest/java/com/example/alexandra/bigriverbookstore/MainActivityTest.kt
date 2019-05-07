@@ -30,11 +30,16 @@ class MainActivityTest {
     }
 
     @Test
-    fun checkIfFirstItemInListExists() {
-        onView(RecyclerViewMatcher(R.id.book_list)
-            .atPositionOnView(0, R.id.authorName))
+    fun checkIfFirstItemHasAuthorName() {
+        onView(
+            RecyclerViewMatcher(R.id.book_list)
+                .atPositionOnView(0, R.id.authorName)
+        )
             .check(matches(withText("Paul k")))
+    }
 
+    @Test
+    fun checkIfFirstItemHasBookTitle() {
         onView(
             RecyclerViewMatcher(R.id.book_list)
                 .atPositionOnView(0, R.id.bookTitle)
