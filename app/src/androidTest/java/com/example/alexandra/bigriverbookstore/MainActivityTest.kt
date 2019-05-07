@@ -37,7 +37,7 @@ class MainActivityTest {
 
         onView(
             RecyclerViewMatcher(R.id.book_list)
-                .atPositionOnView(0, R.id.title)
+                .atPositionOnView(0, R.id.bookTitle)
         )
             .check(matches(withText("book t1")))
     }
