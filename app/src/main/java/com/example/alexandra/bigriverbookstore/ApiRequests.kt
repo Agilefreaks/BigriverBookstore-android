@@ -1,8 +1,7 @@
 package com.example.alexandra.bigriverbookstore
 
-import com.example.alexandra.bigriverbookstore.javaModels.Books
-import com.example.alexandra.bigriverbookstore.javaModels.Photos
-import com.squareup.moshi.JsonAdapter
+import com.example.alexandra.bigriverbookstore.models.Books
+import com.example.alexandra.bigriverbookstore.models.Photos
 import com.squareup.moshi.Moshi
 import moe.banana.jsonapi2.JsonApiConverterFactory
 import moe.banana.jsonapi2.ResourceAdapterFactory
@@ -30,7 +29,7 @@ interface ApiRequests {
             val moshi = Moshi.Builder()
                 .add(jsonApiAdapterFactory)
                 .build()
-            return moshi;
+            return moshi
         }
 
         fun newInstance(): ApiRequests {
