@@ -1,6 +1,6 @@
 package com.example.alexandra.bigriverbookstore
 
-import com.example.alexandra.bigriverbookstore.javaModels.Books
+import com.example.alexandra.bigriverbookstore.models.Books
 import moe.banana.jsonapi2.Document
 import retrofit2.Response
 import java.util.concurrent.ExecutorService

@@ -1,4 +1,4 @@
-package com.example.alexandra.bigriverbookstore.javaModels;
+package com.example.alexandra.bigriverbookstore.models;
 
 import com.squareup.moshi.Json;
 import moe.banana.jsonapi2.HasMany;

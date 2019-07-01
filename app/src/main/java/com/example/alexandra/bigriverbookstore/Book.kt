@@ -1,6 +1,6 @@
 package com.example.alexandra.bigriverbookstore
 
-import com.example.alexandra.bigriverbookstore.javaModels.Books
+import com.example.alexandra.bigriverbookstore.models.Books
 
 data class Book(val name: String, val author: String, val picturePath: String) {
     companion object {
