@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="bookModel"
-                type="com.example.alexandra.bigriverbookstore.Book"/>
+                type="com.example.alexandra.bigriverbookstore.bookList.Book"/>
     </data>
 
     <LinearLayout
@@ -17,7 +17,7 @@
 
         <ImageView
                 android:id="@+id/bookImage"
-                android:src="@{bookModel.picturePath }"
+                android:src="@{bookModel.picturePath}"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
 
@@ -31,7 +31,7 @@
 
             <TextView
                     android:id="@+id/authorName"
-                    android:text="@{bookModel.authorName}"
+                    android:text="@{bookModel.author}"
                     tools:text="Name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -39,13 +39,7 @@
             <TextView
                     tools:text="Book title"
                     android:id="@+id/bookTitle"
-                    android:text="@{bookModel.bookTitle}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-            <TextView
-                    tools:text="Book imagePath"
-                    android:id="@+id/bookImagePath"
-                    android:text="@{bookModel.picturePath}"
+                    android:text="@{bookModel.title}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
