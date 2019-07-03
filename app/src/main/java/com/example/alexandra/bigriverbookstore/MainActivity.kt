@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView(recyclerView: RecyclerView) {
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
-        recyclerView.adapter = BookAdapter()
+        recyclerView.adapter = BookAdapter(emptyList())
 
         thread {
             val repository = BooksRepository(ApiRequests.newInstance())
