@@ -1,6 +1,6 @@
 package com.example.alexandra.bigriverbookstore
 
-import com.example.alexandra.bigriverbookstore.models.Books
+import com.example.alexandra.bigriverbookstore.resources.Book
 import moe.banana.jsonapi2.Document
 import retrofit2.Response
 import java.util.concurrent.ExecutorService
@@ -23,7 +23,7 @@ class BooksRepository(
         }
     }
 
-    private fun verifyResponse(response: Response<Books>): Document<Books> {
+    private fun verifyResponse(response: Response<Book>): Document<Book> {
         val statusCode = response.code()
         if (statusCode != 200) {
             throw  ErrorException("Status code different fro 200. Error body: ${response.errorBody().toString()}")
