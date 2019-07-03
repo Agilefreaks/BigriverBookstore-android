@@ -1,4 +1,4 @@
-package com.example.alexandra.bigriverbookstore
+package com.example.alexandra.bigriverbookstore.bookList
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
