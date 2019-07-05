@@ -1,29 +1,34 @@
-package com.example.alexandra.bigriverbookstore
+package com.example.alexandra.bigriverbookstore.bookList
 
-import com.example.alexandra.bigriverbookstore.resources.Book
-import moe.banana.jsonapi2.Document
+import com.example.alexandra.bigriverbookstore.resources.BookEntity
+import com.squareup.moshi.JsonDataException
 import retrofit2.Response
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
 class BooksRepository(
-    private val api: ApiRequests,
+    private val api: GetBooksRequest,
     private val executor: ExecutorService = Executors.newSingleThreadExecutor()
-) : BooksReturns {
+) : BookInterface {
 
     class ErrorException(error: Any?) : RuntimeException("Error: $error")
 
     override fun getBooks(): Future<List<Book>> {
         return executor.submit<List<Book>> {
-            val response = api.getBooks().execute()
-            val body = verifyResponse(response)
-            val books = body.toList()
-            books.map { Book.from(books) }
+            try {
+                val response = api.getBooks().execute()
+                val body = verifyResponse(response)
+                body.map { book ->
+                    Book.from(book)
+                }
+            } catch (e: JsonDataException) {
+                throw JsonDataException("Error")
+            }
         }
     }
 
-    private fun verifyResponse(response: Response<Book>): Document<Book> {
+    private fun verifyResponse(response: Response<List<BookEntity>>): List<BookEntity> {
         val statusCode = response.code()
         if (statusCode != 200) {
             throw  ErrorException("Status code different fro 200. Error body: ${response.errorBody().toString()}")
