@@ -11,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.http.GET
 
-interface GetBooksRequest {
+interface BookService {
     @GET("books?include=photos,author")
     fun getBooks(): Call<List<BookResource>>
 
@@ -30,7 +30,7 @@ interface GetBooksRequest {
                 .build()
         }
 
-        fun newInstance(): GetBooksRequest {
+        fun newInstance(): BookService {
             val moshi = getMoshi()
             val client = OkHttpClient().newBuilder()
                 .build()
@@ -41,7 +41,7 @@ interface GetBooksRequest {
                 .addConverterFactory(JsonApiConverterFactory.create(moshi))
                 .build()
 
-            return retrofit.create(GetBooksRequest::class.java)
+            return retrofit.create(BookService::class.java)
         }
     }
 }
