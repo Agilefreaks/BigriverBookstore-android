@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
 import com.example.alexandra.bigriverbookstore.bookList.BookAdapter
 import com.example.alexandra.bigriverbookstore.bookList.BooksRepository
-import com.example.alexandra.bigriverbookstore.bookList.GetBooksRequest
+import com.example.alexandra.bigriverbookstore.bookList.BookService
 import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         thread {
             val repository =
-                BooksRepository(GetBooksRequest.newInstance())
+                BooksRepository(BookService.newInstance())
             val future = repository.getBooks()
             val books = future.get()
             runOnUiThread {

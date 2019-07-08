@@ -1,8 +1,8 @@
 package com.example.alexandra.bigriverbookstore.bookList
 
-import com.example.alexandra.bigriverbookstore.resources.AuthorEntity
-import com.example.alexandra.bigriverbookstore.resources.BookEntity
-import com.example.alexandra.bigriverbookstore.resources.PhotoEntity
+import com.example.alexandra.bigriverbookstore.resources.AuthorResource
+import com.example.alexandra.bigriverbookstore.resources.BookResource
+import com.example.alexandra.bigriverbookstore.resources.PhotoResource
 import com.squareup.moshi.Moshi
 import moe.banana.jsonapi2.JsonApiConverterFactory
 import moe.banana.jsonapi2.ResourceAdapterFactory
@@ -13,15 +13,15 @@ import retrofit2.http.GET
 
 interface GetBooksRequest {
     @GET("books?include=photos,author")
-    fun getBooks(): Call<List<BookEntity>>
+    fun getBooks(): Call<List<BookResource>>
 
     companion object {
         fun getMoshi(): Moshi {
             // Create the factory
             val jsonApiAdapterFactory = ResourceAdapterFactory.builder()
-                .add(AuthorEntity::class.java)
-                .add(BookEntity::class.java)
-                .add(PhotoEntity::class.java)
+                .add(AuthorResource::class.java)
+                .add(BookResource::class.java)
+                .add(PhotoResource::class.java)
                 .build()
 
             // Create a custom moshi instance

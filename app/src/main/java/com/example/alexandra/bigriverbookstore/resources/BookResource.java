@@ -9,19 +9,19 @@ import moe.banana.jsonapi2.Resource;
 import java.util.List;
 
 @JsonApi(type = "books")
-public class BookEntity extends Resource {
+public class BookResource extends Resource {
     public String title;
     @Json(name = "date_published")
     public String datePublished;
     public String isbn;
-    private HasOne<AuthorEntity> author;
-    private HasMany<PhotoEntity> photos;
+    private HasOne<AuthorResource> author;
+    private HasMany<PhotoResource> photos;
 
-    public AuthorEntity getAuthor() {
+    public AuthorResource getAuthor() {
         return author.get(getDocument());
     }
 
-    public List<PhotoEntity> getAllPhotos() {
+    public List<PhotoResource> getAllPhotos() {
         return photos.get(getDocument());
     }
 }

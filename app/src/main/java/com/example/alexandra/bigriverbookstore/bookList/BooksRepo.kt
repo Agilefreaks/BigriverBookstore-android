@@ -1,6 +1,6 @@
 package com.example.alexandra.bigriverbookstore.bookList
 
-import com.example.alexandra.bigriverbookstore.resources.BookEntity
+import com.example.alexandra.bigriverbookstore.resources.BookResource
 import com.squareup.moshi.JsonDataException
 import retrofit2.Response
 import java.util.concurrent.ExecutorService
@@ -8,7 +8,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
 class BooksRepository(
-    private val api: GetBooksRequest,
+    private val api: BookService,
     private val executor: ExecutorService = Executors.newSingleThreadExecutor()
 ) : BookInterface {
 
@@ -28,7 +28,7 @@ class BooksRepository(
         }
     }
 
-    private fun verifyResponse(response: Response<List<BookEntity>>): List<BookEntity> {
+    private fun verifyResponse(response: Response<List<BookResource>>): List<BookResource> {
         val statusCode = response.code()
         if (statusCode != 200) {
             throw  ErrorException("Status code different fro 200. Error body: ${response.errorBody().toString()}")
