@@ -14,11 +14,11 @@ public class BookResource extends Resource {
     @Json(name = "date_published")
     public String datePublished;
     public String isbn;
-    private HasOne<AuthorResource> author;
-    private HasMany<PhotoResource> photos;
+    public HasOne<AuthorResource> authors;
+    public HasMany<PhotoResource> photos;
 
     public AuthorResource getAuthor() {
-        return author.get(getDocument());
+        return authors.get(getDocument());
     }
 
     public List<PhotoResource> getAllPhotos() {
