@@ -10,6 +10,7 @@ import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
 import moe.banana.jsonapi2.HasMany
 import moe.banana.jsonapi2.HasOne
+import okhttp3.mock.get
 import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit
 
 class BooksRepositoryTest {
     @Test
-    fun `should check if a list of books is returned`() {
+    fun `should get books`() {
         //given
         val bookResourceMock = listOf(BookResource().apply {
             photos = HasMany()
@@ -26,8 +27,6 @@ class BooksRepositoryTest {
             authors = HasOne(AuthorResource())
             title = " Android Developer"
         })
-
-        val executor = mock<ExecutorService>()
 
         val apiMock = mock<BookService>()
 
@@ -39,10 +38,10 @@ class BooksRepositoryTest {
 
         whenever(apiMock.getBooks()).thenReturn(mockCall)
 
-        val repository = BooksRepository(apiMock, executor)
+        val repository = BooksRepository(apiMock)
 
         val future = repository.getBooks()
-        executor.awaitTermination(4, TimeUnit.SECONDS)
+        Thread.sleep(5000)
         val books = future.get()
 
         //assert
