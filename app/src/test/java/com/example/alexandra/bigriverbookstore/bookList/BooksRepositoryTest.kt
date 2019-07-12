@@ -8,44 +8,47 @@ import com.natpryce.hamkrest.equalTo
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
+import moe.banana.jsonapi2.ArrayDocument
 import moe.banana.jsonapi2.HasMany
 import moe.banana.jsonapi2.HasOne
-import okhttp3.mock.get
+import moe.banana.jsonapi2.ObjectDocument
 import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 class BooksRepositoryTest {
     @Test
     fun `should get books`() {
         //given
-        val bookResourceMock = listOf(BookResource().apply {
+        val document = ArrayDocument<BookResource>()
+        val bookResource = BookResource().apply {
             photos = HasMany()
+            authors = HasOne()
             allPhotos.add(0, PhotoResource())
-            authors = HasOne(AuthorResource())
+            authors.set("authors", "0")
             title = " Android Developer"
-        })
+        }
+        document.add(bookResource)
+        val authorResource = AuthorResource().apply { id = "0"; name = "Ionica" }
+        document.addInclude(authorResource)
 
-        val apiMock = mock<BookService>()
-
-        val response = Response.success(bookResourceMock)
+        val bookServiceMock = mock<BookService>()
+        val response = Response.success(document.toList())
 
         val mockCall = mock<Call<List<BookResource>>> {
             on { execute() } doReturn response
         }
 
-        whenever(apiMock.getBooks()).thenReturn(mockCall)
+        whenever(bookServiceMock.getBooks()).thenReturn(mockCall)
 
-        val repository = BooksRepository(apiMock)
+        val repository = BooksRepository(bookServiceMock)
 
         val future = repository.getBooks()
-        Thread.sleep(5000)
+
         val books = future.get()
-
         //assert
-        assertThat(books.size, equalTo(5))
-
+        assertThat(books.size, equalTo(1))
     }
 }
