@@ -17,14 +17,12 @@ interface BookService {
 
     companion object {
         fun getMoshi(): Moshi {
-            // Create the factory
             val jsonApiAdapterFactory = ResourceAdapterFactory.builder()
                 .add(AuthorResource::class.java)
                 .add(BookResource::class.java)
                 .add(PhotoResource::class.java)
                 .build()
 
-            // Create a custom moshi instance
             return Moshi.Builder()
                 .add(jsonApiAdapterFactory)
                 .build()
