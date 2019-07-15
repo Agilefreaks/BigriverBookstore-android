@@ -1,11 +1,11 @@
-package com.example.alexandra.bigriverbookstore
+package com.example.alexandra.bigriverbookstore.bookList
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.alexandra.bigriverbookstore.databinding.BookListItemBinding
 
-class BookAdapter(private val bookList: ArrayList<Book>) : RecyclerView.Adapter<BookHolder>() {
+class BookAdapter(private val bookList: List<Book>) : RecyclerView.Adapter<BookHolder>() {
 
     override fun onBindViewHolder(holder: BookHolder, position: Int) = holder.bind(bookList[position])
 
